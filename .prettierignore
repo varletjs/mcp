@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+lib/
+
+# Cache directories
+.cache/
+.temp/
+.tmp/
+
+# Logs
+*.log
+logs/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated files
+*.d.ts
+*.map
+
+# Configuration files that should maintain their format
+.eslintrc*
+.prettierrc*
+tsconfig*.json
+
+# Markdown files (optional - remove if you want to format markdown)
+*.md
+
+# Binary files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Documentation build output
+docs/.vitepress/dist
+docs/.vitepress/cache

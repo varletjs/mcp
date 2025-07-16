@@ -1,0 +1,153 @@
+{
+  "name": "@varlet/mcp",
+  "version": "1.0.0",
+  "description": "A Model Context Protocol (MCP) server for Varlet UI, providing AI assistants with comprehensive access to Varlet UI documentation, component APIs, and development resources.",
+  "homepage": "https://github.com/varletjs/varlet-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/varletjs/varlet-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/varletjs/varlet-mcp/issues"
+  },
+  "bin": {
+    "varlet-mcp-server": "bin/cli.js",
+    "varlet-mcp": "bin/cli.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "imports": {
+    "#plugins/*": "./dist/plugins/*.js",
+    "#prompts/*": "./dist/prompts/*.js",
+    "#resources/*": "./dist/resources/*.js",
+    "#services/*": "./dist/services/*.js",
+    "#tools/*": "./dist/tools/*.js",
+    "#transports/*": "./dist/transports/*.js",
+    "#types/*": "./dist/types/*.js",
+    "#utils/*": "./dist/utils/*.js"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "build:watch": "tsc --watch",
+    "start": "node dist/index.js",
+    "dev": "pnpm run build:watch & node --watch dist/index.js",
+    "cli": "node dist/cli/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "echo \"Unit tests not implemented yet\"",
+    "test:integration": "echo \"Integration tests not implemented yet\"",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,js,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
+    "clean": "rimraf dist coverage .nyc_output",
+    "prepublishOnly": "pnpm run clean && pnpm run build && pnpm run lint && pnpm run type-check",
+    "prepack": "pnpm run build",
+    "postinstall": "echo \"Thanks for installing @varlet/mcp! 🎉\"",
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "version": "pnpm run changelog && git add CHANGELOG.md"
+  },
+  "keywords": [
+    "varlet",
+    "varletjs",
+    "varlet-ui",
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "anthropic",
+    "ai-assistant",
+    "vue",
+    "vue3",
+    "ui",
+    "ui-library",
+    "component-library",
+    "mobile-ui",
+    "documentation",
+    "api",
+    "typescript",
+    "cli",
+    "developer-tools",
+    "ai-tools",
+    "code-assistant"
+  ],
+  "author": {
+    "name": "Varlet Team",
+    "url": "https://github.com/varletjs"
+  },
+  "contributors": [
+    {
+      "name": "Varlet Team",
+      "url": "https://github.com/varletjs"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "citty": "^0.1.6",
+    "dotenv": "^16.5.0",
+    "is-wsl": "^3.1.0",
+    "jsonc-parser": "^3.3.1",
+    "kolorist": "^1.8.0",
+    "octokit": "^5.0.3",
+    "pathe": "^2.0.3",
+    "std-env": "^3.9.0",
+    "tinyexec": "^1.0.1",
+    "which": "^5.0.0",
+    "zod": "^3.25.56"
+  },
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^8.0.2",
+    "@types/node": "^22.15.30",
+    "@types/which": "^3.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "conventional-changelog-cli": "^5.0.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "release-it": "^17.8.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "pnpm@10.11.1",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/varlet"
+  },
+  "volta": {
+    "node": "18.20.4",
+    "pnpm": "10.11.1"
+  }
+}
