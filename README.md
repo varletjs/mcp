@@ -59,6 +59,24 @@ varlet-mcp-server --version
 
 ## 🚀 Usage
 
+```json
+{
+  "mcpServers": {
+    "varlet-ui": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@fe-fast/varlet-mcp"
+      ],
+      "env": {
+        "VARLET_VERSION": "latest",
+        "CACHE_TTL": "3600000"
+      }
+    }
+  }
+}
+```
+
 ### Integration with Claude Desktop
 
 Add to your Claude Desktop configuration file:
