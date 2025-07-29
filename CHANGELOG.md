@@ -1,3 +1,15 @@
+## <small>1.0.1 (2025-07-29)</small>
+
+* feat(文档服务): 实现真实版本获取并更新发布说明 ([07f392b](https://github.com/varletjs/varlet-mcp/commit/07f392b))
+* Initial commit ([346a767](https://github.com/varletjs/varlet-mcp/commit/346a767))
+* refactor: 重命名 暂时 ([f800233](https://github.com/varletjs/varlet-mcp/commit/f800233))
+* feat: 本地跑下 ([8cbf625](https://github.com/varletjs/varlet-mcp/commit/8cbf625))
+* feat: 文档完善 ([2847ff3](https://github.com/varletjs/varlet-mcp/commit/2847ff3))
+* feat(api): 最新Varlet UI组件 ([5faa62a](https://github.com/varletjs/varlet-mcp/commit/5faa62a))
+* init: first commit ([ca90572](https://github.com/varletjs/varlet-mcp/commit/ca90572))
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
