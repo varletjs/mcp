@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "varlet": {
+      "command": "node",
+      "args": ["/path/to/varlet-mcp/dist/index.js"],
+      "env": {
+        "GITHUB_TOKEN": "your_github_token_here",
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
