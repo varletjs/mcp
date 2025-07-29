@@ -114,7 +114,9 @@ export async function registerApiTools(server: McpServer) {
     },
     async ({ componentName, version }) => {
       const api: VarletWebTypes = JSON.parse(await cacheApi(version));
-      const normalizedComponentName = componentName.toLowerCase().startsWith('var-')
+      const normalizedComponentName = componentName
+        .toLowerCase()
+        .startsWith('var-')
         ? componentName.toLowerCase()
         : `var-${componentName.toLowerCase()}`;
 

@@ -1,17 +1,21 @@
 /**
  * API utilities for caching and fetching Varlet UI type definitions.
  */
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import {
+  mkdir as _mkdir,
+  readFile as _readFile,
+  writeFile as _writeFile,
+} from 'fs/promises';
 import { join } from 'path';
 import { homedir } from 'os';
-import { fetch } from 'undici';
+import { fetch as _fetch } from 'undici';
 
 const CACHE_DIR = join(homedir(), '.varlet-mcp');
-const CACHE_FILE = (version: string) =>
+const _CACHE_FILE = (version: string) =>
   join(CACHE_DIR, `varlet-${version}.json`);
 
 // Varlet UI web-types URL (this would need to be the actual URL when available)
-const VARLET_WEB_TYPES_URL = (version: string) =>
+const _VARLET_WEB_TYPES_URL = (version: string) =>
   version === 'latest'
     ? 'https://unpkg.com/@varlet/ui/web-types.json'
     : `https://unpkg.com/@varlet/ui@${version}/web-types.json`;
@@ -64,7 +68,10 @@ export async function cacheApi(version: string): Promise<string> {
           { name: 'var-picker', description: 'Picker component' },
           { name: 'var-popup', description: 'Popup component' },
           { name: 'var-progress', description: 'Progress component' },
-          { name: 'var-pull-refresh', description: 'Pull to refresh component' },
+          {
+            name: 'var-pull-refresh',
+            description: 'Pull to refresh component',
+          },
           { name: 'var-radio', description: 'Radio button component' },
           { name: 'var-radio-group', description: 'Radio group component' },
           { name: 'var-rate', description: 'Rate component' },

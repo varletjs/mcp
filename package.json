@@ -1,5 +1,5 @@
 {
-  "name": "@varlet/mcp",
+  "name": "@fe-fast/varlet-mcp",
   "version": "1.0.0",
   "description": "A Model Context Protocol (MCP) server for Varlet UI, providing AI assistants with comprehensive access to Varlet UI documentation, component APIs, and development resources.",
   "homepage": "https://github.com/varletjs/varlet-mcp#readme",
