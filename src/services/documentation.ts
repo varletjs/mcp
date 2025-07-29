@@ -3,10 +3,21 @@
  *
  * Provides access to installation guides, feature documentation, and other resources.
  */
-import { Octokit } from 'octokit'
+import { Octokit } from 'octokit';
 
-export type InstallationPlatform = 'vite' | 'vue-cli' | 'nuxt' | 'webpack' | 'cdn'
-export type AvailableFeature = 'theming' | 'i18n' | 'dark-mode' | 'ssr' | 'typescript' | 'lazy-loading'
+export type InstallationPlatform =
+  | 'vite'
+  | 'vue-cli'
+  | 'nuxt'
+  | 'webpack'
+  | 'cdn';
+export type AvailableFeature =
+  | 'theming'
+  | 'i18n'
+  | 'dark-mode'
+  | 'ssr'
+  | 'typescript'
+  | 'lazy-loading';
 
 export const INSTALLATION_PLATFORMS: Record<InstallationPlatform, string> = {
   vite: 'Vite',
@@ -14,7 +25,7 @@ export const INSTALLATION_PLATFORMS: Record<InstallationPlatform, string> = {
   nuxt: 'Nuxt.js',
   webpack: 'Webpack',
   cdn: 'CDN',
-}
+};
 
 export const AVAILABLE_FEATURES: Record<AvailableFeature, string> = {
   theming: 'Theming and Customization',
@@ -23,17 +34,25 @@ export const AVAILABLE_FEATURES: Record<AvailableFeature, string> = {
   ssr: 'Server-Side Rendering',
   typescript: 'TypeScript Support',
   'lazy-loading': 'Lazy Loading Components',
-}
+};
 
 export function createDocumentationService() {
-  const octokit = new Octokit({
+  const _octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
-  })
+  });
 
   return {
-    async getInstallationGuide({ platform, ssr, fresh }: { platform: InstallationPlatform; ssr: boolean; fresh: boolean }) {
+    async getInstallationGuide({
+      platform,
+      ssr,
+      fresh,
+    }: {
+      platform: InstallationPlatform;
+      ssr: boolean;
+      fresh: boolean;
+    }) {
       // Generate installation guide based on platform
-      let guide = ''
+      let guide = '';
 
       if (platform === 'vite') {
         if (fresh) {
@@ -71,7 +90,7 @@ app.mount('#app')
 \`\`\`bash
 npm run dev
 \`\`\`
-`
+`;
         } else {
           guide = `
 # Installing Varlet UI with Vite (Existing Project)
@@ -94,7 +113,7 @@ const app = createApp(App)
 app.use(Varlet)
 app.mount('#app')
 \`\`\`
-`
+`;
         }
 
         if (ssr) {
@@ -120,7 +139,7 @@ export default defineConfig({
   }
 })
 \`\`\`
-`
+`;
         }
       } else if (platform === 'vue-cli') {
         guide = `
@@ -144,7 +163,7 @@ const app = createApp(App)
 app.use(Varlet)
 app.mount('#app')
 \`\`\`
-`
+`;
       } else if (platform === 'nuxt') {
         guide = `
 # Installing Varlet UI with Nuxt.js
@@ -183,7 +202,7 @@ export default defineNuxtConfig({
   }
 })
 \`\`\`
-`
+`;
       } else if (platform === 'webpack') {
         guide = `
 # Installing Varlet UI with Webpack
@@ -228,7 +247,7 @@ module.exports = {
   ]
 }
 \`\`\`
-`
+`;
       } else if (platform === 'cdn') {
         guide = `
 # Using Varlet UI via CDN
@@ -261,32 +280,38 @@ You can use Varlet UI directly via CDN:
 </body>
 </html>
 \`\`\`
-`
+`;
       }
 
       return {
-        content: [{
-          type: 'text',
-          text: guide,
-        }],
-      }
+        contents: [
+          {
+            uri: 'varlet://installation/guide.md',
+            text: guide,
+          },
+        ],
+      };
     },
 
     async getFeatureGuides() {
       return {
-        content: [{
-          type: 'text',
-          text: `# Available Varlet UI Features
+        contents: [
+          {
+            uri: 'varlet://features/guides.md',
+            text: `# Available Varlet UI Features
 
-${Object.entries(AVAILABLE_FEATURES).map(([key, name]) => `- **${name}** (${key})`).join('\n')}
+${Object.entries(AVAILABLE_FEATURES)
+  .map(([key, name]) => `- **${name}** (${key})`)
+  .join('\n')}
 
 Use the \`get_feature_guide\` tool with the feature key to get detailed information about each feature.`,
-        }],
-      }
+          },
+        ],
+      };
     },
 
     async getFeatureGuide({ feature }: { feature: AvailableFeature }) {
-      let guide = ''
+      let guide = '';
 
       if (feature === 'theming') {
         guide = `
@@ -361,7 +386,7 @@ StyleProvider({
   'color-info': '#2196f3'
 })
 \`\`\`
-`
+`;
       } else if (feature === 'i18n') {
         guide = `
 # Varlet UI Internationalization
@@ -416,7 +441,7 @@ import frFR from './fr-FR'
 Locale.add('fr-FR', frFR)
 Locale.use('fr-FR')
 \`\`\`
-`
+`;
       } else if (feature === 'dark-mode') {
         guide = `
 # Varlet UI Dark Mode
@@ -466,7 +491,7 @@ html[var-theme='dark'] {
   /* ... other dark mode variables */
 }
 \`\`\`
-`
+`;
       } else if (feature === 'ssr') {
         guide = `
 # Varlet UI Server-Side Rendering
@@ -522,7 +547,7 @@ Some components like those using browser-specific APIs should only be rendered o
   </div>
 </template>
 \`\`\`
-`
+`;
       } else if (feature === 'typescript') {
         guide = `
 # Varlet UI TypeScript Support
@@ -569,7 +594,7 @@ const handleClick = () => {
 }
 </script>
 \`\`\`
-`
+`;
       } else if (feature === 'lazy-loading') {
         guide = `
 # Varlet UI Lazy Loading
@@ -646,22 +671,25 @@ module.exports = {
 \`\`\`
 
 With this configuration, you can use Varlet components directly in your templates without importing them, and only the components you actually use will be included in your bundle.
-`
+`;
       }
 
       return {
-        content: [{
-          type: 'text',
-          text: guide,
-        }],
-      }
+        contents: [
+          {
+            uri: `varlet://features/${feature}.md`,
+            text: guide,
+          },
+        ],
+      };
     },
 
     async getVarletExports() {
       return {
-        content: [{
-          type: 'text',
-          text: `# Varlet UI Exports
+        contents: [
+          {
+            uri: 'varlet://exports/index.md',
+            text: `# Varlet UI Exports
 
 The @varlet/ui package exports the following:
 
@@ -730,15 +758,17 @@ The @varlet/ui package exports the following:
 - TimePicker (global time picker)
 - Loading (global loading)
 `,
-        }],
-      }
+          },
+        ],
+      };
     },
 
     async getFrequentlyAskedQuestions() {
       return {
-        content: [{
-          type: 'text',
-          text: `# Varlet UI Frequently Asked Questions
+        contents: [
+          {
+            uri: 'varlet://faq/index.md',
+            text: `# Varlet UI Frequently Asked Questions
 
 ## General
 
@@ -783,17 +813,19 @@ A: Yes, Varlet UI is designed to be responsive and works well on both mobile and
 ### Q: Does Varlet UI support touch gestures?
 A: Yes, many Varlet UI components support touch gestures for mobile devices, such as swipe, pinch, and tap.
 `,
-        }],
-      }
+          },
+        ],
+      };
     },
 
     async getReleaseNotesByVersion({ version }: { version: string }) {
       // In a real implementation, this would fetch actual release notes from GitHub
       // For this example, we'll return a placeholder
       return {
-        content: [{
-          type: 'text',
-          text: `# Varlet UI Release Notes - ${version === 'latest' ? 'v2.0.0' : `v${version}`}
+        contents: [
+          {
+            uri: `varlet://releases/${version}.md`,
+            text: `# Varlet UI Release Notes - ${version === 'latest' ? 'v2.0.0' : `v${version}`}
 
 ## New Features
 
@@ -817,17 +849,19 @@ A: Yes, many Varlet UI components support touch gestures for mobile devices, suc
 - Reduced bundle size by optimizing internal utilities
 - Improved rendering performance for list-based components
 `,
-        }],
-      }
+          },
+        ],
+      };
     },
 
     async getPlaygroundExamples({ component }: { component?: string }) {
       if (component) {
         // Return examples for a specific component
         return {
-          content: [{
-            type: 'text',
-            text: `# ${component} Component Examples
+          contents: [
+            {
+              uri: `varlet://playground/${component}.md`,
+              text: `# ${component} Component Examples
 
 ## Basic Usage
 
@@ -841,15 +875,17 @@ A: Yes, many Varlet UI components support touch gestures for mobile devices, suc
 
 Try this component in the [Varlet UI Playground](https://varlet.gitee.io/varlet-ui/#/en-US/playground)
 `,
-          }],
-        }
+            },
+          ],
+        };
       }
 
       // Return general playground information
       return {
-        content: [{
-          type: 'text',
-          text: `# Varlet UI Playground
+        contents: [
+          {
+            uri: 'varlet://playground/index.md',
+            text: `# Varlet UI Playground
 
 You can try out Varlet UI components in the online playground:
 
@@ -857,8 +893,9 @@ You can try out Varlet UI components in the online playground:
 
 Use the \`get_varlet_playground_examples\` tool with a specific component name to get examples for that component.
 `,
-        }],
-      }
+          },
+        ],
+      };
     },
-  }
+  };
 }

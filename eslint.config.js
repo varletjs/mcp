@@ -46,7 +46,7 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/prefer-const': 'error',
+
       '@typescript-eslint/no-var-requires': 'off',
       
       // General rules
@@ -63,7 +63,7 @@ export default [
       'no-useless-escape': 'error',
       'no-trailing-spaces': 'error',
       'eol-last': 'error',
-      'comma-dangle': ['error', 'es5'],
+      // 'comma-dangle': ['error', 'never'], // Let Prettier handle this
       'semi': ['error', 'always'],
       'quotes': ['error', 'single', { avoidEscape: true }],
       
@@ -100,6 +100,7 @@ export default [
       '*.log',
       '.DS_Store',
       'Thumbs.db',
+      'eslint.config.js',
     ],
   },
 ];

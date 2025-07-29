@@ -1,17 +1,17 @@
 /**
  * Authentication transport wrapper for MCP server.
  */
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 export class AuthTransportWrapper {
-  private transport: StdioServerTransport
+  private transport: StdioServerTransport;
 
   constructor() {
-    this.transport = new StdioServerTransport()
+    this.transport = new StdioServerTransport();
   }
 
   async connect() {
-    return this.transport
+    return this.transport;
   }
 
   async close() {

@@ -4,45 +4,51 @@
  *
  * This file initializes the MCP server and registers all the available tools.
  */
-import 'dotenv/config'
+import 'dotenv/config';
 
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 
-import { intro } from './cli/intro.js'
-import packageJson from '../package.json' with { type: 'json' }
+import { intro } from './cli/intro.js';
+import packageJson from '../package.json' with { type: 'json' };
 
-import { registerPrompts } from '#prompts/index'
-import { registerResources } from '#resources/index'
-import { registerTools } from '#tools/index'
-import { AuthTransportWrapper } from '#transports/auth'
+import { registerPrompts } from '#prompts/index';
+import { registerResources } from '#resources/index';
+import { registerTools } from '#tools/index';
+import { AuthTransportWrapper } from '#transports/auth';
 
 const server = new McpServer({
   name: 'Varlet',
   version: packageJson.version,
   capabilities: {
     resources: {
-      description: 'Resources for Varlet UI component information and documentation.',
+      description:
+        'Resources for Varlet UI component information and documentation.',
     },
     tools: {
-      description: 'Tools to help with Varlet component properties, layouts, and documentation.',
+      description:
+        'Tools to help with Varlet component properties, layouts, and documentation.',
     },
     prompts: {
-      description: 'Prompts to assist with Varlet component usage and best practices.',
+      description:
+        'Prompts to assist with Varlet component usage and best practices.',
     },
   },
-})
+});
 
-await registerResources(server)
-await registerPrompts(server)
-await registerTools(server)
+await registerResources(server);
+await registerPrompts(server);
+await registerTools(server);
 
-async function main () {
-  intro()
-  const auth = new AuthTransportWrapper()
-  await server.connect(auth)
+async function main() {
+  intro();
+  // TODO: The API key is not used. The AuthTransportWrapper is a stub and does not implement authentication.
+  const auth = new AuthTransportWrapper();
+  const transport = await auth.connect();
+  await server.connect(transport);
+  console.log('Server is ready!');
 }
 
 main().catch(error => {
-  console.error('Fatal error in main():', error)
-  process.exit(1)
-})
+  console.error('Fatal error in main():', error);
+  process.exit(1);
+});

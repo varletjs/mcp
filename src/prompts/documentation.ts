@@ -1,20 +1,27 @@
 /**
  * Documentation-related prompts for Varlet UI.
  */
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { z } from 'zod'
+import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { z } from 'zod';
 
-export async function registerDocumentationPrompts (server: McpServer) {
+export async function registerDocumentationPrompts(server: McpServer) {
   server.prompt(
     'varlet_component_usage',
     'Generate usage examples and best practices for a Varlet UI component',
     {
-      componentName: z.string().describe('The name of the Varlet component (e.g., Button, Card, Input)'),
-      useCase: z.string().optional().describe('Specific use case or scenario for the component'),
+      componentName: z
+        .string()
+        .describe(
+          'The name of the Varlet component (e.g., Button, Card, Input)'
+        ),
+      useCase: z
+        .string()
+        .optional()
+        .describe('Specific use case or scenario for the component'),
     },
     async ({ componentName, useCase }) => {
-      const useCaseText = useCase ? ` for ${useCase}` : ''
-      
+      const useCaseText = useCase ? ` for ${useCase}` : '';
+
       return {
         messages: [
           {
@@ -35,20 +42,34 @@ Format the response with clear code examples and explanations.`,
             },
           },
         ],
-      }
-    },
-  )
+      };
+    }
+  );
 
   server.prompt(
     'varlet_layout_design',
     'Generate layout design suggestions using Varlet UI components',
     {
-      layoutType: z.enum(['dashboard', 'form', 'list', 'card-grid', 'navigation', 'mobile-app']).describe('Type of layout to design'),
-      requirements: z.string().optional().describe('Specific requirements or features needed'),
+      layoutType: z
+        .enum([
+          'dashboard',
+          'form',
+          'list',
+          'card-grid',
+          'navigation',
+          'mobile-app',
+        ])
+        .describe('Type of layout to design'),
+      requirements: z
+        .string()
+        .optional()
+        .describe('Specific requirements or features needed'),
     },
     async ({ layoutType, requirements }) => {
-      const requirementsText = requirements ? `\n\nSpecific requirements: ${requirements}` : ''
-      
+      const requirementsText = requirements
+        ? `\n\nSpecific requirements: ${requirements}`
+        : '';
+
       return {
         messages: [
           {
@@ -69,20 +90,33 @@ Ensure the design follows modern UI/UX principles and Varlet UI design guideline
             },
           },
         ],
-      }
-    },
-  )
+      };
+    }
+  );
 
   server.prompt(
     'varlet_migration_guide',
     'Generate migration guide from other UI libraries to Varlet UI',
     {
-      fromLibrary: z.enum(['vuetify', 'element-plus', 'ant-design-vue', 'quasar', 'naive-ui']).describe('The UI library to migrate from'),
-      components: z.string().optional().describe('Specific components to focus on (comma-separated)'),
+      fromLibrary: z
+        .enum([
+          'vuetify',
+          'element-plus',
+          'ant-design-vue',
+          'quasar',
+          'naive-ui',
+        ])
+        .describe('The UI library to migrate from'),
+      components: z
+        .string()
+        .optional()
+        .describe('Specific components to focus on (comma-separated)'),
     },
     async ({ fromLibrary, components }) => {
-      const componentsText = components ? ` focusing on these components: ${components}` : ''
-      
+      const componentsText = components
+        ? ` focusing on these components: ${components}`
+        : '';
+
       return {
         messages: [
           {
@@ -106,20 +140,34 @@ Provide practical, actionable guidance for developers making this transition.`,
             },
           },
         ],
-      }
-    },
-  )
+      };
+    }
+  );
 
   server.prompt(
     'varlet_troubleshooting',
     'Generate troubleshooting guide for common Varlet UI issues',
     {
-      issueCategory: z.enum(['installation', 'styling', 'components', 'build', 'ssr', 'typescript']).describe('Category of issues to troubleshoot'),
-      specificIssue: z.string().optional().describe('Specific issue or error message'),
+      issueCategory: z
+        .enum([
+          'installation',
+          'styling',
+          'components',
+          'build',
+          'ssr',
+          'typescript',
+        ])
+        .describe('Category of issues to troubleshoot'),
+      specificIssue: z
+        .string()
+        .optional()
+        .describe('Specific issue or error message'),
     },
     async ({ issueCategory, specificIssue }) => {
-      const specificText = specificIssue ? `\n\nSpecific issue: ${specificIssue}` : ''
-      
+      const specificText = specificIssue
+        ? `\n\nSpecific issue: ${specificIssue}`
+        : '';
+
       return {
         messages: [
           {
@@ -140,16 +188,20 @@ Format as a practical troubleshooting checklist that developers can follow.`,
             },
           },
         ],
-      }
-    },
-  )
+      };
+    }
+  );
 
   server.prompt(
     'varlet_performance_optimization',
     'Generate performance optimization guide for Varlet UI applications',
     {
-      appType: z.enum(['spa', 'ssr', 'mobile', 'desktop', 'pwa']).describe('Type of application'),
-      focusArea: z.enum(['bundle-size', 'runtime', 'loading', 'memory', 'all']).describe('Performance area to focus on'),
+      appType: z
+        .enum(['spa', 'ssr', 'mobile', 'desktop', 'pwa'])
+        .describe('Type of application'),
+      focusArea: z
+        .enum(['bundle-size', 'runtime', 'loading', 'memory', 'all'])
+        .describe('Performance area to focus on'),
     },
     async ({ appType, focusArea }) => {
       return {
@@ -175,7 +227,7 @@ Provide actionable recommendations with measurable impact on application perform
             },
           },
         ],
-      }
-    },
-  )
+      };
+    }
+  );
 }
