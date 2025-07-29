@@ -114,14 +114,12 @@ export async function registerApiTools(server: McpServer) {
     },
     async ({ componentName, version }) => {
       const api: VarletWebTypes = JSON.parse(await cacheApi(version));
-      let target = componentName.replace('-', '').toLowerCase();
-
-      if (!target.startsWith('var')) {
-        target = `var-${target}`;
-      }
+      const normalizedComponentName = componentName.toLowerCase().startsWith('var-')
+        ? componentName.toLowerCase()
+        : `var-${componentName.toLowerCase()}`;
 
       const tag = api.contributions.html.tags.find(
-        tag => tag.name.toLowerCase() === target
+        tag => tag.name.toLowerCase() === normalizedComponentName
       );
 
       if (!tag) {
@@ -129,7 +127,7 @@ export async function registerApiTools(server: McpServer) {
           content: [
             {
               type: 'text',
-              text: `Component "${target}" not found in Varlet version ${version}.`,
+              text: `Component "${normalizedComponentName}" not found in Varlet version ${version}.`,
             },
           ],
         };
@@ -212,43 +210,75 @@ export async function registerApiTools(server: McpServer) {
     },
     async ({ version }) => {
       const components = [
-        'Button',
-        'Card',
-        'Cell',
-        'Checkbox',
-        'Dialog',
-        'Divider',
-        'Fab',
-        'Form',
-        'Icon',
-        'Image',
-        'Input',
-        'List',
-        'Loading',
-        'Menu',
-        'Overlay',
-        'Picker',
-        'Popup',
-        'Progress',
-        'Radio',
-        'Rate',
-        'Select',
-        'Slider',
-        'Snackbar',
-        'Step',
-        'Sticky',
-        'Switch',
-        'Tab',
-        'Table',
-        'Tooltip',
-        'Uploader',
+        'var-app-bar',
+        'var-back-top',
+        'var-badge',
+        'var-button',
+        'var-card',
+        'var-cell',
+        'var-checkbox',
+        'var-chip',
+        'var-col',
+        'var-collapse',
+        'var-collapse-item',
+        'var-countdown',
+        'var-counter',
+        'var-date-picker',
+        'var-dialog',
+        'var-divider',
+        'var-drag',
+        'var-ellipsis',
+        'var-fab',
+        'var-form',
+        'var-icon',
+        'var-image',
+        'var-image-preview',
+        'var-index-bar',
+        'var-index-anchor',
+        'var-input',
+        'var-lazy',
+        'var-list',
+        'var-loading',
+        'var-menu',
+        'var-option',
+        'var-overlay',
+        'var-pagination',
+        'var-picker',
+        'var-popup',
+        'var-progress',
+        'var-pull-refresh',
+        'var-radio',
+        'var-radio-group',
+        'var-rate',
+        'var-result',
+        'var-row',
+        'var-select',
+        'var-skeleton',
+        'var-slider',
+        'var-snackbar',
+        'var-space',
+        'var-step',
+        'var-steps',
+        'var-sticky',
+        'var-swipe',
+        'var-swipe-item',
+        'var-switch',
+        'var-tab',
+        'var-tab-item',
+        'var-table',
+        'var-tabs',
+        'var-tabs-items',
+        'var-time-picker',
+        'var-tooltip',
+        'var-uploader',
+        'var-watermark',
       ];
 
       return {
         content: [
           {
             type: 'text',
-            text: `Available Varlet components (v${version}):\n\n${components.map(comp => `• var-${comp.toLowerCase()}`).join('\n')}`,
+            text: `Available Varlet components (v${version}):\n\n${components.map(comp => `• ${comp}`).join('\n')}`,
           },
         ],
       };
